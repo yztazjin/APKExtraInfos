@@ -6,7 +6,13 @@ import fast_apktool
 import sys
 import threading
 
-sys.path.append(os.path.dirname(__file__))
+if getattr(sys, 'frozen', False):
+    # cx_freeze打包后的exe的python环境会打入frozen关键字
+    work_dir = os.path.dirname(sys.executable)
+else:
+    # unfrozen
+    work_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(work_dir)
 
 
 class APKToolIndex(LabelFrame):
